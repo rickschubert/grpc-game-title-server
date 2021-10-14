@@ -1,7 +1,7 @@
 gRPC example server and clients
 ===============================
 
-This project demonstrates how [gRPC](https://grpc.io/) to implement APIs on web servers. Unlike in REST APIs, all of the exposed web server methods are defined in a contract [which the .proto file forms](gametitles/game_titles.proto).
+This project demonstrates how [gRPC](https://grpc.io/) can be used to implement APIs on web servers. Unlike in REST APIs, all of the exposed web server methods are defined in a contract [which the .proto file forms](gametitles/game_titles.proto).
 
 We have an example server (`/server`) written in Golang as well as two clients, one in Golang (`/clients/go`) and one in Node.js (`/clients/node`). This demonstrates how easy it is to consume the API using gRPC and how the gRPC framework auto-generates consumer libraries and provides them to us for free.
 
