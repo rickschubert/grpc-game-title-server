@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
 
@@ -14,15 +16,35 @@ type server struct {
 	gamingstats.UnimplementedGamingStatsServer
 }
 
+func readAllGames() ([]gamingstats.GameStats, error) {
+	bytes, err := ioutil.ReadFile("server/games.json")
+	if err != nil {
+		return []gamingstats.GameStats{}, fmt.Errorf("unable to read JSON games file: %w", err)
+	}
+	var games []gamingstats.GameStats
+	err = json.Unmarshal(bytes, &games)
+	if err != nil {
+		return []gamingstats.GameStats{}, fmt.Errorf("unable to unmarshal JSON games file: %w", err)
+	}
+	return games, err
+}
+
+// A real project would find this game in a database. As this is just an eample,
+// we are instead just parsing a JSON and finding the results from there.
+func FindGameInDatabase(title string) (gamingstats.GameStats, error) {
+	games, err := readAllGames()
+	if err != nil {
+		return gamingstats.GameStats{}, fmt.Errorf("unable to read games: %w", err)
+	}
+	return games[0], nil
+}
+
 func (s *server) GetGame(ctx context.Context, request *gamingstats.GameRequest) (*gamingstats.GameStats, error) {
-	return &gamingstats.GameStats{
-		Title: "Uncharted 4",
-		Platforms: []gamingstats.Platform{
-			gamingstats.Platform_PLAYSTATION_4,
-			gamingstats.Platform_PLAYSTATION_5,
-			gamingstats.Platform_PC,
-		},
-	}, nil
+	game, err := FindGameInDatabase(request.Title)
+	if err != nil {
+		return &gamingstats.GameStats{}, fmt.Errorf("Unable to find game: %w", err)
+	}
+	return &game, nil
 }
 
 func main() {

@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Uncharted 4: A Thief's End",
+        "platforms": [0, 2, 1]
+    },
+    {
+        "title": "Uncharted 2: Among Thieves",
+        "platforms": [0, 2]
+    },
+    {
+        "title": "God Of War",
+        "platforms": [2]
+    },
+    {
+        "title": "God Of War Ragnarok",
+        "platforms": [2, 0]
+    }
+]
