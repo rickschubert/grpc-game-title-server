@@ -19,3 +19,6 @@ This example server sets up a web server on localhost:8000 which implements a `G
     - `cd clients/node`
     - `npm install`
     - `node index.js`
+
+# Development
+The protobuf Go stubs are created using the script `bash compileproto.sh`. Whenever the `.proto` file is changed, this task needs to be re-run.

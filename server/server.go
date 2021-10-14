@@ -9,33 +9,33 @@ import (
 	"net"
 	"strings"
 
-	"github.com/rickschubert/grpc-game-title-server/gamingstats"
+	"github.com/rickschubert/grpc-game-title-server/gametitles"
 	"google.golang.org/grpc"
 )
 
 type server struct {
-	gamingstats.UnimplementedGamingStatsServer
+	gametitles.UnimplementedGameTitlesServer
 }
 
-func readAllGames() ([]gamingstats.GameStats, error) {
+func readAllGames() ([]gametitles.GameStats, error) {
 	bytes, err := ioutil.ReadFile("server/games.json")
 	if err != nil {
-		return []gamingstats.GameStats{}, fmt.Errorf("unable to read JSON games file: %w", err)
+		return []gametitles.GameStats{}, fmt.Errorf("unable to read JSON games file: %w", err)
 	}
-	var games []gamingstats.GameStats
+	var games []gametitles.GameStats
 	err = json.Unmarshal(bytes, &games)
 	if err != nil {
-		return []gamingstats.GameStats{}, fmt.Errorf("unable to unmarshal JSON games file: %w", err)
+		return []gametitles.GameStats{}, fmt.Errorf("unable to unmarshal JSON games file: %w", err)
 	}
 	return games, err
 }
 
 // A real project would find this game in a database. As this is just an example,
 // we are instead parsing a JSON and find a suitable result by string match.
-func FindGameInDatabase(title string) (gamingstats.GameStats, error) {
+func FindGameInDatabase(title string) (gametitles.GameStats, error) {
 	games, err := readAllGames()
 	if err != nil {
-		return gamingstats.GameStats{}, fmt.Errorf("unable to read games: %w", err)
+		return gametitles.GameStats{}, fmt.Errorf("unable to read games: %w", err)
 	}
 	for _, game := range games {
 		desiredTitle := strings.ToLower(title)
@@ -46,13 +46,13 @@ func FindGameInDatabase(title string) (gamingstats.GameStats, error) {
 			return game, nil
 		}
 	}
-	return gamingstats.GameStats{}, fmt.Errorf("cannot find game with title %s", title)
+	return gametitles.GameStats{}, fmt.Errorf("cannot find game with title %s", title)
 }
 
-func (s *server) GetGame(ctx context.Context, request *gamingstats.GameRequest) (*gamingstats.GameStats, error) {
+func (s *server) GetGame(ctx context.Context, request *gametitles.GameRequest) (*gametitles.GameStats, error) {
 	game, err := FindGameInDatabase(request.Title)
 	if err != nil {
-		return &gamingstats.GameStats{}, fmt.Errorf("unable to find game: %w", err)
+		return &gametitles.GameStats{}, fmt.Errorf("unable to find game: %w", err)
 	}
 	return &game, nil
 }
@@ -63,7 +63,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	gamingstats.RegisterGamingStatsServer(s, &server{})
+	gametitles.RegisterGameTitlesServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

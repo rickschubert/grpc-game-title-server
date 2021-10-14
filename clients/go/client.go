@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	gamingstats "github.com/rickschubert/grpc-game-title-server/gamingstats"
+	"github.com/rickschubert/grpc-game-title-server/gametitles"
 	"google.golang.org/grpc"
 )
 
@@ -16,12 +16,12 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	client := gamingstats.NewGamingStatsClient(conn)
+	client := gametitles.NewGameTitlesClient(conn)
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	response, err := client.GetGame(ctx, &gamingstats.GameRequest{
+	response, err := client.GetGame(ctx, &gametitles.GameRequest{
 		Title: "Uncharted 4",
 	})
 	if err != nil {

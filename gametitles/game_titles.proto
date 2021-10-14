@@ -14,15 +14,15 @@
 
 syntax = "proto3";
 
-option go_package = "github.com/rickschubert/gamingstats";
+option go_package = "github.com/rickschubert/gametitles";
 option java_multiple_files = true;
-option java_package = "io.grpc.examples.gamingstats";
-option java_outer_classname = "GamingStatsProto";
+option java_package = "io.grpc.examples.gametitles";
+option java_outer_classname = "GameTitlesProto";
 
-package gamingstats;
+package gametitles;
 
 // Interface exported by the server.
-service GamingStats {
+service GameTitles {
   rpc GetGame(GameRequest) returns (GameStats) {}
 }
 

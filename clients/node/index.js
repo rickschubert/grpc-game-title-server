@@ -1,17 +1,17 @@
 const grpc = require('@grpc/grpc-js');
-var protoLoader = require('@grpc/proto-loader');
-var packageDefinition = protoLoader.loadSync(
-    __dirname + '../../../gamingstats/gaming_stats.proto',
+const protoLoader = require('@grpc/proto-loader');
+const packageDefinition = protoLoader.loadSync(
+    __dirname + '../../../gametitles/game_titles.proto',
     {keepCase: true,
      longs: String,
      enums: String,
      defaults: true,
      oneofs: true
     });
-const hello_proto = grpc.loadPackageDefinition(packageDefinition).gamingstats;
+const hello_proto = grpc.loadPackageDefinition(packageDefinition).gametitles;
 
 function main() {
-    var client = new hello_proto.GamingStats('localhost:8000',
+    var client = new hello_proto.GameTitles('localhost:8000',
                                          grpc.credentials.createInsecure());
     client.getGame({title: 'uncharted 4'}, function(err, response) {
       if (err) {
