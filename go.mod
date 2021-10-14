@@ -1,4 +1,4 @@
-module github.com/rickschubert/grpctaster
+module github.com/rickschubert/grpc-game-title-server
 
 go 1.17
 

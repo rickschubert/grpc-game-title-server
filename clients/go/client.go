@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	gamingstats "github.com/rickschubert/grpctaster/gamingstats"
+	gamingstats "github.com/rickschubert/grpc-game-title-server/gamingstats"
 	"google.golang.org/grpc"
 )
 
