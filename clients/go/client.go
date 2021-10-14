@@ -23,7 +23,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	response, err := client.GetGame(ctx, &gametitles.GameRequest{
-		Title: "Uncharted 4",
+		Title: "uncharted 4",
 	})
 	if err != nil {
 		log.Fatalf("Received error from server: %v", err)

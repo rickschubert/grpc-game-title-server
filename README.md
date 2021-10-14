@@ -1,9 +1,11 @@
 gRPC example server and clients
 ===============================
 
-This project sets up an example server (`/server`) written in Golang. There are two clients, one written in Golang (`/clients/go`) and the other written in Node.js (`/clients/node`) in order to demonstrate how easy it is to consume the API using gRPC.
+This project demonstrates how [gRPC](https://grpc.io/) to implement APIs on web servers. Unlike in REST APIs, all of the exposed web server methods are defined in a contract [which the .proto file forms](gametitles/game_titles.proto).
 
-This example server sets up a web server on localhost:8000 which implements a `GetGame` function. Users can ask for a game by title (i.e. "Uncharted 4") and then receive the first game wich matches the title - all done using gRPC.
+We have an example server (`/server`) written in Golang as well as two clients, one in Golang (`/clients/go`) and one in Node.js (`/clients/node`). This demonstrates how easy it is to consume the API using gRPC and how the gRPC framework auto-generates consumer libraries and provides them to us for free.
+
+The example server starts its API on localhost:8000 and implements a `GetGame` function. Consumers can request this API for a game by title (i.e. "Uncharted 4") and then receive the first game wich matches the title - all done using gRPC.
 
 # Requirements
 - Golang
