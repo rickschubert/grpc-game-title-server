@@ -30,8 +30,8 @@ func readAllGames() ([]gamingstats.GameStats, error) {
 	return games, err
 }
 
-// A real project would find this game in a database. As this is just an eample,
-// we are instead just parsing a JSON and finding the results from there.
+// A real project would find this game in a database. As this is just an example,
+// we are instead parsing a JSON and find a suitable result by string match.
 func FindGameInDatabase(title string) (gamingstats.GameStats, error) {
 	games, err := readAllGames()
 	if err != nil {
