@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
+	"strings"
 
 	"github.com/rickschubert/grpctaster/gamingstats"
 	"google.golang.org/grpc"
@@ -36,13 +37,22 @@ func FindGameInDatabase(title string) (gamingstats.GameStats, error) {
 	if err != nil {
 		return gamingstats.GameStats{}, fmt.Errorf("unable to read games: %w", err)
 	}
-	return games[0], nil
+	for _, game := range games {
+		desiredTitle := strings.ToLower(title)
+		desiredTitle = strings.TrimSpace(desiredTitle)
+		gameTitle := strings.ToLower(game.GetTitle())
+		gameTitle = strings.TrimSpace(gameTitle)
+		if strings.Contains(gameTitle, desiredTitle) {
+			return game, nil
+		}
+	}
+	return gamingstats.GameStats{}, fmt.Errorf("cannot find game with title %s", title)
 }
 
 func (s *server) GetGame(ctx context.Context, request *gamingstats.GameRequest) (*gamingstats.GameStats, error) {
 	game, err := FindGameInDatabase(request.Title)
 	if err != nil {
-		return &gamingstats.GameStats{}, fmt.Errorf("Unable to find game: %w", err)
+		return &gamingstats.GameStats{}, fmt.Errorf("unable to find game: %w", err)
 	}
 	return &game, nil
 }

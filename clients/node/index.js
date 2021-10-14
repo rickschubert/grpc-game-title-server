@@ -13,7 +13,7 @@ const hello_proto = grpc.loadPackageDefinition(packageDefinition).gamingstats;
 function main() {
     var client = new hello_proto.GamingStats('localhost:8000',
                                          grpc.credentials.createInsecure());
-    client.getGame({title: 'Uncharted 4'}, function(err, response) {
+    client.getGame({title: 'uncharted 4'}, function(err, response) {
       if (err) {
           throw err
       }
