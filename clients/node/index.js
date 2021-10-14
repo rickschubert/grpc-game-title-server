@@ -8,9 +8,9 @@ const packageDefinition = protoLoader.loadSync(
         defaults: true,
         oneofs: true
     });
-const hello_proto = grpc.loadPackageDefinition(packageDefinition).gametitles;
+const {gametitles} = grpc.loadPackageDefinition(packageDefinition);
 
-const client = new hello_proto.GameTitles('localhost:8000', grpc.credentials.createInsecure());
+const client = new gametitles.GameTitles('localhost:8000', grpc.credentials.createInsecure());
 client.getGame({
     title: 'uncharted 4'
 }, function(err, response) {
