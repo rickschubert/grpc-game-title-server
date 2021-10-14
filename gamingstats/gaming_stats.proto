@@ -14,12 +14,12 @@
 
 syntax = "proto3";
 
-option go_package = "github.com/rickschubert/grpctaster";
+option go_package = "github.com/rickschubert/gamingstats";
 option java_multiple_files = true;
-option java_package = "io.grpc.examples.grpctaster";
-option java_outer_classname = "GrpcTasterProto";
+option java_package = "io.grpc.examples.gamingstats";
+option java_outer_classname = "GamingStatsProto";
 
-package grpctaster;
+package gamingstats;
 
 // Interface exported by the server.
 service GamingStats {
