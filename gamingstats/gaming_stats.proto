@@ -23,10 +23,10 @@ package gamingstats;
 
 // Interface exported by the server.
 service GamingStats {
-  rpc GetGame(Game) returns (GameStats) {}
+  rpc GetGame(GameRequest) returns (GameStats) {}
 }
 
-message Game {
+message GameRequest {
   string title = 1;
 }
 

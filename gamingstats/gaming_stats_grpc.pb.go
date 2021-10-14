@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GamingStatsClient interface {
-	GetGame(ctx context.Context, in *Game, opts ...grpc.CallOption) (*GameStats, error)
+	GetGame(ctx context.Context, in *GameRequest, opts ...grpc.CallOption) (*GameStats, error)
 }
 
 type gamingStatsClient struct {
@@ -29,7 +29,7 @@ func NewGamingStatsClient(cc grpc.ClientConnInterface) GamingStatsClient {
 	return &gamingStatsClient{cc}
 }
 
-func (c *gamingStatsClient) GetGame(ctx context.Context, in *Game, opts ...grpc.CallOption) (*GameStats, error) {
+func (c *gamingStatsClient) GetGame(ctx context.Context, in *GameRequest, opts ...grpc.CallOption) (*GameStats, error) {
 	out := new(GameStats)
 	err := c.cc.Invoke(ctx, "/gamingstats.GamingStats/GetGame", in, out, opts...)
 	if err != nil {
@@ -42,7 +42,7 @@ func (c *gamingStatsClient) GetGame(ctx context.Context, in *Game, opts ...grpc.
 // All implementations must embed UnimplementedGamingStatsServer
 // for forward compatibility
 type GamingStatsServer interface {
-	GetGame(context.Context, *Game) (*GameStats, error)
+	GetGame(context.Context, *GameRequest) (*GameStats, error)
 	mustEmbedUnimplementedGamingStatsServer()
 }
 
@@ -50,7 +50,7 @@ type GamingStatsServer interface {
 type UnimplementedGamingStatsServer struct {
 }
 
-func (UnimplementedGamingStatsServer) GetGame(context.Context, *Game) (*GameStats, error) {
+func (UnimplementedGamingStatsServer) GetGame(context.Context, *GameRequest) (*GameStats, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGame not implemented")
 }
 func (UnimplementedGamingStatsServer) mustEmbedUnimplementedGamingStatsServer() {}
@@ -67,7 +67,7 @@ func RegisterGamingStatsServer(s grpc.ServiceRegistrar, srv GamingStatsServer) {
 }
 
 func _GamingStats_GetGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Game)
+	in := new(GameRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func _GamingStats_GetGame_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/gamingstats.GamingStats/GetGame",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GamingStatsServer).GetGame(ctx, req.(*Game))
+		return srv.(GamingStatsServer).GetGame(ctx, req.(*GameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -97,5 +97,5 @@ var GamingStats_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "gaming_stats.proto",
+	Metadata: "gamingstats/gaming_stats.proto",
 }

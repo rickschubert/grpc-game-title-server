@@ -14,7 +14,7 @@ type server struct {
 	gamingstats.UnimplementedGamingStatsServer
 }
 
-func (s *server) GetGame(ctx context.Context, request *gamingstats.Game) (*gamingstats.GameStats, error) {
+func (s *server) GetGame(ctx context.Context, request *gamingstats.GameRequest) (*gamingstats.GameStats, error) {
 	return &gamingstats.GameStats{
 		Title: "Uncharted 4",
 		Platforms: []gamingstats.Platform{

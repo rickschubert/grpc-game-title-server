@@ -21,7 +21,7 @@ func main() {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	response, err := client.GetGame(ctx, &gamingstats.Game{
+	response, err := client.GetGame(ctx, &gamingstats.GameRequest{
 		Title: "Uncharted",
 	})
 	if err != nil {
