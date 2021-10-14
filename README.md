@@ -12,7 +12,7 @@ This example server sets up a web server on localhost:8000 which implements a `G
 # Set up
 - `go get ./...` to get the dependencies
 - `go run server/server.go` to launch the web server
-- To use a client accessing the API:
+- To use a client accessing the API exposed by the web server:
   - Golang:
     - `go run clients/go/client.go`
   - Node.js:

@@ -16,6 +16,7 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
+
 	client := gametitles.NewGameTitlesClient(conn)
 
 	// Contact the server and print out its response.
